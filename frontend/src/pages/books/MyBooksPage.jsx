@@ -1,10 +1,10 @@
-import { useNavigate } from 'react-router-dom';
-
 function MyBooksPage() {
   return (
-    <div className="bg-white rounded-lg shadow p-6">
-      <h1 className="text-3xl font-bold">My Books</h1>
-      <p className="text-gray-600 mt-4">My books page - to be implemented</p>
+    <div className="card border-0 shadow-sm">
+      <div className="card-body p-4">
+        <h1 className="h2 fw-bold mb-3">My Books</h1>
+        <p className="text-secondary mb-0">My books page - to be implemented</p>
+      </div>
     </div>
   );
 }

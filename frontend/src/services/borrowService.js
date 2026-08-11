@@ -6,10 +6,11 @@
 import apiClient from './apiClient';
 
 export const borrowService = {
-  borrowBook: async (bookId, userId = null) => {
+  borrowBook: async (bookId, userId = null, issuedBy = null) => {
     const response = await apiClient.post('/borrow/borrow', {
       bookId,
       ...(userId && { userId }),
+      ...(issuedBy && { issuedBy }),
     });
     return response.data;
   },

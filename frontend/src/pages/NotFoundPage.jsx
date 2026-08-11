@@ -3,14 +3,16 @@ import { useNavigate } from 'react-router-dom';
 function NotFoundPage() {
   const navigate = useNavigate();
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+    <div className="min-vh-100 d-flex align-items-center justify-content-center bg-light">
       <div className="text-center">
-        <h1 className="text-6xl font-bold text-gray-900 mb-4">404</h1>
-        <p className="text-xl text-gray-600 mb-8">Page not found</p>
+        <h1 className="display-1 fw-bold mb-3">404</h1>
+        <p className="fs-4 text-secondary mb-4">Page not found</p>
         <button
+          type="button"
           onClick={() => navigate('/dashboard')}
-          className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700"
+          className="btn btn-primary d-inline-flex align-items-center gap-2"
         >
+          <i className="bi bi-house"></i>
           Go to Dashboard
         </button>
       </div>

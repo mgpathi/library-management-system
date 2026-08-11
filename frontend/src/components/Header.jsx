@@ -28,45 +28,47 @@ function Header() {
   };
 
   return (
-    <header className="bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between">
-      <div className="flex-1">
-        <h2 className="text-xl font-semibold text-gray-900">Library Management System</h2>
+    <header className="d-flex align-items-center justify-content-between bg-dark text-white px-4 py-3 border-bottom border-secondary">
+      <div className="flex-grow-1">
+        <h2 className="h5 fw-semibold mb-0">Library Management System</h2>
       </div>
 
-      <div className="flex items-center gap-4">
+      <div className="d-flex align-items-center gap-3">
         {/* Theme Toggle */}
         <button
+          type="button"
           onClick={() => dispatch(toggleTheme())}
-          className="p-2 hover:bg-gray-100 rounded-full transition"
+          className="btn btn-dark border-0 rounded-circle p-2"
           title="Toggle theme"
         >
-          {theme === 'light' ? '🌙' : '☀️'}
+          <i className={`bi ${theme === 'light' ? 'bi-moon-stars' : 'bi-sun'} fs-5`}></i>
         </button>
 
         {/* User Menu */}
-        <div className="flex items-center gap-4">
-          {user && (
-            <>
-              <div className="text-right">
-                <p className="font-medium text-gray-900">
-                  {user.firstName} {user.lastName}
-                </p>
-                <p className="text-sm text-gray-500 capitalize">{user.role}</p>
-              </div>
-              <img
-                src={user.profileImage || '👤'}
-                alt="Profile"
-                className="w-10 h-10 rounded-full bg-gray-200"
-              />
-            </>
-          )}
-        </div>
+        {user && (
+          <div className="d-flex align-items-center gap-2">
+            <div className="text-end">
+              <p className="fw-medium mb-0">
+                {user.firstName} {user.lastName}
+              </p>
+              <p className="small text-white-50 text-capitalize mb-0">{user.role}</p>
+            </div>
+            <span
+              className="d-inline-flex align-items-center justify-content-center rounded-circle bg-secondary border border-2 border-primary"
+              style={{ width: '2.5rem', height: '2.5rem' }}
+            >
+              <i className="bi bi-person-fill fs-5"></i>
+            </span>
+          </div>
+        )}
 
         {/* Logout Button */}
         <button
+          type="button"
           onClick={handleLogout}
-          className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition"
+          className="btn btn-danger d-inline-flex align-items-center gap-2"
         >
+          <i className="bi bi-box-arrow-right"></i>
           Logout
         </button>
       </div>
