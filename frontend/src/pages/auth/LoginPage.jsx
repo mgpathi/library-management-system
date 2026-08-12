@@ -22,6 +22,8 @@ function LoginPage() {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
 
+  const appVersion = import.meta.env.VITE_APP_NAME + ' v' + import.meta.env.VITE_APP_VERSION;
+
   const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(validationSchema),
   });
@@ -47,53 +49,66 @@ function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-blue-600 to-blue-800 flex items-center justify-center p-4">
-      <div className="bg-white rounded-lg shadow-xl p-8 w-full max-w-md">
-        <h1 className="text-3xl font-bold text-center text-gray-900 mb-8">
-          Library Management
-        </h1>
+    <div className="min-vh-100 d-flex align-items-center justify-content-center bg-primary bg-gradient p-4">
+      <div className="card shadow-lg border-0 w-100" style={{ maxWidth: '28rem' }}>
+        <div className="card-body p-4 p-md-5">
+          <h1 className="h3 fw-bold text-center mb-4 d-flex align-items-center justify-content-center gap-2">
+            <i className="bi bi-book-half text-primary"></i>
+            Library Management
+          </h1>
 
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="mb-4">
-            <label className="block text-gray-700 font-medium mb-2">Email</label>
-            <input
-              type="email"
-              {...register('email')}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
-              placeholder="your@email.com"
-            />
-            {errors.email && <p className="text-red-600 text-sm mt-1">{errors.email.message}</p>}
-          </div>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div className="mb-3">
+              <label className="form-label fw-medium">Email</label>
+              <div className="input-group">
+                <span className="input-group-text"><i className="bi bi-envelope"></i></span>
+                <input
+                  type="email"
+                  {...register('email')}
+                  className={`form-control ${errors.email ? 'is-invalid' : ''}`}
+                  placeholder="your@email.com"
+                />
+                {errors.email && <div className="invalid-feedback">{errors.email.message}</div>}
+              </div>
+            </div>
 
-          <div className="mb-6">
-            <label className="block text-gray-700 font-medium mb-2">Password</label>
-            <input
-              type="password"
-              {...register('password')}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
-              placeholder="••••••••"
-            />
-            {errors.password && <p className="text-red-600 text-sm mt-1">{errors.password.message}</p>}
-          </div>
+            <div className="mb-4">
+              <label className="form-label fw-medium">Password</label>
+              <div className="input-group">
+                <span className="input-group-text"><i className="bi bi-lock"></i></span>
+                <input
+                  type="password"
+                  {...register('password')}
+                  className={`form-control ${errors.password ? 'is-invalid' : ''}`}
+                  placeholder="••••••••"
+                />
+                {errors.password && <div className="invalid-feedback">{errors.password.message}</div>}
+              </div>
+            </div>
 
-          <button
-            type="submit"
-            disabled={isLoading}
-            className="w-full bg-blue-600 text-white font-semibold py-2 rounded-lg hover:bg-blue-700 transition disabled:opacity-50"
-          >
-            {isLoading ? 'Logging in...' : 'Login'}
-          </button>
-        </form>
+            <button
+              type="submit"
+              disabled={isLoading}
+              className="btn btn-primary w-100 fw-semibold"
+            >
+              {isLoading ? 'Logging in...' : 'Login'}
+            </button>
+          </form>
 
-        <p className="text-center text-gray-600 mt-4">
-          Don't have an account?{' '}
-          <button
-            onClick={() => navigate('/register')}
-            className="text-blue-600 hover:underline font-semibold"
-          >
-            Register here
-          </button>
-        </p>
+          <p className="text-center text-secondary mt-4 mb-0">
+            Don't have an account?{' '}
+            <button
+              type="button"
+              onClick={() => navigate('/register')}
+              className="btn btn-link p-0 fw-semibold align-baseline"
+            >
+              Register here
+            </button>
+          </p>
+          <p className="text-center text-secondary mt-4 mb-0">
+            App Version: <span className="fw-semibold">{appVersion}</span>
+          </p>
+        </div>
       </div>
     </div>
   );

@@ -53,92 +53,96 @@ function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-blue-600 to-blue-800 flex items-center justify-center p-4">
-      <div className="bg-white rounded-lg shadow-xl p-8 w-full max-w-md">
-        <h1 className="text-3xl font-bold text-center text-gray-900 mb-8">
-          Create Account
-        </h1>
+    <div className="min-vh-100 d-flex align-items-center justify-content-center bg-primary bg-gradient p-4">
+      <div className="card shadow-lg border-0 w-100" style={{ maxWidth: '32rem' }}>
+        <div className="card-body p-4 p-md-5">
+          <h1 className="h3 fw-bold text-center mb-4 d-flex align-items-center justify-content-center gap-2">
+            <i className="bi bi-person-plus text-primary"></i>
+            Create Account
+          </h1>
 
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="grid grid-cols-2 gap-4 mb-4">
-            <div>
-              <label className="block text-gray-700 font-medium mb-2">First Name</label>
-              <input
-                type="text"
-                {...register('firstName')}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
-              />
-              {errors.firstName && <p className="text-red-600 text-sm mt-1">{errors.firstName.message}</p>}
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div className="row g-3 mb-3">
+              <div className="col-6">
+                <label className="form-label fw-medium">First Name</label>
+                <input
+                  type="text"
+                  {...register('firstName')}
+                  className={`form-control ${errors.firstName ? 'is-invalid' : ''}`}
+                />
+                {errors.firstName && <div className="invalid-feedback">{errors.firstName.message}</div>}
+              </div>
+              <div className="col-6">
+                <label className="form-label fw-medium">Last Name</label>
+                <input
+                  type="text"
+                  {...register('lastName')}
+                  className={`form-control ${errors.lastName ? 'is-invalid' : ''}`}
+                />
+                {errors.lastName && <div className="invalid-feedback">{errors.lastName.message}</div>}
+              </div>
             </div>
-            <div>
-              <label className="block text-gray-700 font-medium mb-2">Last Name</label>
+
+            <div className="mb-3">
+              <label className="form-label fw-medium">Email</label>
               <input
-                type="text"
-                {...register('lastName')}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+                type="email"
+                {...register('email')}
+                className={`form-control ${errors.email ? 'is-invalid' : ''}`}
               />
-              {errors.lastName && <p className="text-red-600 text-sm mt-1">{errors.lastName.message}</p>}
+              {errors.email && <div className="invalid-feedback">{errors.email.message}</div>}
             </div>
-          </div>
 
-          <div className="mb-4">
-            <label className="block text-gray-700 font-medium mb-2">Email</label>
-            <input
-              type="email"
-              {...register('email')}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
-            />
-            {errors.email && <p className="text-red-600 text-sm mt-1">{errors.email.message}</p>}
-          </div>
+            <div className="mb-3">
+              <label className="form-label fw-medium">Phone</label>
+              <input
+                type="tel"
+                {...register('phone')}
+                className={`form-control ${errors.phone ? 'is-invalid' : ''}`}
+              />
+              {errors.phone && <div className="invalid-feedback">{errors.phone.message}</div>}
+            </div>
 
-          <div className="mb-4">
-            <label className="block text-gray-700 font-medium mb-2">Phone</label>
-            <input
-              type="tel"
-              {...register('phone')}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
-            />
-            {errors.phone && <p className="text-red-600 text-sm mt-1">{errors.phone.message}</p>}
-          </div>
+            <div className="mb-3">
+              <label className="form-label fw-medium">Password</label>
+              <input
+                type="password"
+                {...register('password')}
+                className={`form-control ${errors.password ? 'is-invalid' : ''}`}
+              />
+              {errors.password && <div className="invalid-feedback">{errors.password.message}</div>}
+            </div>
 
-          <div className="mb-4">
-            <label className="block text-gray-700 font-medium mb-2">Password</label>
-            <input
-              type="password"
-              {...register('password')}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
-            />
-            {errors.password && <p className="text-red-600 text-sm mt-1">{errors.password.message}</p>}
-          </div>
+            <div className="mb-4">
+              <label className="form-label fw-medium">Confirm Password</label>
+              <input
+                type="password"
+                {...register('confirmPassword')}
+                className={`form-control ${errors.confirmPassword ? 'is-invalid' : ''}`}
+              />
+              {errors.confirmPassword && <div className="invalid-feedback">{errors.confirmPassword.message}</div>}
+            </div>
 
-          <div className="mb-6">
-            <label className="block text-gray-700 font-medium mb-2">Confirm Password</label>
-            <input
-              type="password"
-              {...register('confirmPassword')}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
-            />
-            {errors.confirmPassword && <p className="text-red-600 text-sm mt-1">{errors.confirmPassword.message}</p>}
-          </div>
+            <button
+              type="submit"
+              disabled={isLoading}
+              className="btn btn-primary w-100 fw-semibold"
+            >
+              {isLoading ? 'Creating account...' : 'Register'}
+            </button>
+          </form>
 
-          <button
-            type="submit"
-            disabled={isLoading}
-            className="w-full bg-blue-600 text-white font-semibold py-2 rounded-lg hover:bg-blue-700 transition disabled:opacity-50"
-          >
-            {isLoading ? 'Creating account...' : 'Register'}
-          </button>
-        </form>
-
-        <p className="text-center text-gray-600 mt-4">
-          Already have an account?{' '}
-          <button
-            onClick={() => navigate('/login')}
-            className="text-blue-600 hover:underline font-semibold"
-          >
-            Login here
-          </button>
-        </p>
+          <p className="text-center text-secondary mt-4 mb-0">
+            Already have an account?{' '}
+            <button
+              type="button"
+              onClick={() => navigate('/login')}
+              className="btn btn-link p-0 fw-semibold align-baseline"
+            >
+              Login here
+            </button>
+          </p>
+        </div>
       </div>
     </div>
   );

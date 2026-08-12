@@ -216,269 +216,279 @@ function BookFormPage() {
 
   if (!canManageBooks) {
     return (
-      <div className="rounded-2xl border border-red-200 bg-red-50 p-8 text-center text-red-700">
+      <div className="alert alert-danger d-flex align-items-center gap-2" role="alert">
+        <i className="bi bi-shield-lock"></i>
         You do not have permission to manage books.
       </div>
     );
   }
 
   return (
-    <div className="space-y-6">
-      <div className="rounded-3xl border border-slate-200 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-700 p-8 text-white shadow-xl">
-        <div className="flex flex-wrap items-center justify-between gap-4">
-          <div>
-            <p className="text-sm uppercase tracking-[0.35em] text-slate-300">Book Management</p>
-            <h1 className="mt-2 text-3xl font-semibold">
-              {isEditMode ? 'Update an existing book' : 'Add or import new books'}
-            </h1>
-            <p className="mt-3 max-w-2xl text-sm text-slate-300">
-              Manage inventory in one place by creating a single title, updating an existing record, or importing several books at once.
-            </p>
+    <div className="vstack gap-4">
+      <div className="card border-0 shadow bg-dark text-white">
+        <div className="card-body p-4">
+          <div className="d-flex flex-wrap align-items-center justify-content-between gap-3">
+            <div>
+              <p className="small text-uppercase text-white-50 mb-2" style={{ letterSpacing: '0.35em' }}>Book Management</p>
+              <h1 className="h3 fw-semibold mb-2">
+                {isEditMode ? 'Update an existing book' : 'Add or import new books'}
+              </h1>
+              <p className="small text-white-50 mb-0" style={{ maxWidth: '42rem' }}>
+                Manage inventory in one place by creating a single title, updating an existing record, or importing several books at once.
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={() => navigate('/books')}
+              className="btn btn-outline-light rounded-pill d-inline-flex align-items-center gap-2"
+            >
+              <i className="bi bi-arrow-left"></i> Back to Library
+            </button>
           </div>
-          <button
-            onClick={() => navigate('/books')}
-            className="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-medium transition hover:bg-white/20"
-          >
-            Back to Library
-          </button>
         </div>
       </div>
 
-      <div className="grid gap-6 xl:grid-cols-[1.2fr_0.8fr]">
-        <form onSubmit={handleSubmit} className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-          <div className="mb-6 flex items-center justify-between">
-            <div>
-              <h2 className="text-xl font-semibold text-slate-900">{isEditMode ? 'Edit Book Details' : 'Create Book Entry'}</h2>
-              <p className="mt-1 text-sm text-slate-500">Fields marked with * are required.</p>
+      <div className="row g-4">
+        <div className="col-12 col-xl-7">
+          <form onSubmit={handleSubmit} className="card border shadow-sm">
+            <div className="card-body p-4">
+              <div className="mb-4">
+                <h2 className="h5 fw-semibold mb-1">{isEditMode ? 'Edit Book Details' : 'Create Book Entry'}</h2>
+                <p className="small text-secondary mb-0">Fields marked with * are required.</p>
+              </div>
+
+              <div className="row g-3">
+                <div className="col-md-6">
+                  <label className="form-label fw-medium">Title *</label>
+                  <input
+                    name="title"
+                    value={formData.title}
+                    onChange={handleChange}
+                    className="form-control"
+                    placeholder="The Great Gatsby"
+                  />
+                </div>
+
+                <div className="col-md-6">
+                  <label className="form-label fw-medium">Author *</label>
+                  <input
+                    name="author"
+                    value={formData.author}
+                    onChange={handleChange}
+                    className="form-control"
+                    placeholder="F. Scott Fitzgerald"
+                  />
+                </div>
+
+                <div className="col-md-6">
+                  <label className="form-label fw-medium">ISBN *</label>
+                  <input
+                    name="isbn"
+                    value={formData.isbn}
+                    onChange={handleChange}
+                    className="form-control"
+                    placeholder="9780141182636"
+                  />
+                </div>
+
+                <div className="col-md-6">
+                  <label className="form-label fw-medium">Category *</label>
+                  <select
+                    name="category"
+                    value={formData.category}
+                    onChange={handleChange}
+                    className="form-select"
+                  >
+                    <option value="">Select a category</option>
+                    {categories.map((category) => (
+                      <option key={category._id} value={category._id}>
+                        {category.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="col-md-6">
+                  <label className="form-label fw-medium">Publisher *</label>
+                  <input
+                    name="publisher"
+                    value={formData.publisher}
+                    onChange={handleChange}
+                    className="form-control"
+                    placeholder="Penguin Books"
+                  />
+                </div>
+
+                <div className="col-md-6">
+                  <label className="form-label fw-medium">Published Year *</label>
+                  <input
+                    type="number"
+                    name="publishedYear"
+                    value={formData.publishedYear}
+                    onChange={handleChange}
+                    className="form-control"
+                  />
+                </div>
+
+                <div className="col-md-6">
+                  <label className="form-label fw-medium">Language</label>
+                  <select
+                    name="language"
+                    value={formData.language}
+                    onChange={handleChange}
+                    className="form-select"
+                  >
+                    <option value="English">English</option>
+                    <option value="Hindi">Hindi</option>
+                    <option value="Spanish">Spanish</option>
+                    <option value="French">French</option>
+                    <option value="German">German</option>
+                    <option value="Chinese">Chinese</option>
+                    <option value="Japanese">Japanese</option>
+                    <option value="Others">Others</option>
+                  </select>
+                </div>
+
+                <div className="col-md-6">
+                  <label className="form-label fw-medium">Status</label>
+                  <select
+                    name="status"
+                    value={formData.status}
+                    onChange={handleChange}
+                    className="form-select"
+                  >
+                    <option value="available">Available</option>
+                    <option value="borrowed">Borrowed</option>
+                    <option value="reserved">Reserved</option>
+                    <option value="damaged">Damaged</option>
+                    <option value="lost">Lost</option>
+                  </select>
+                </div>
+
+                <div className="col-md-6">
+                  <label className="form-label fw-medium">Total Copies *</label>
+                  <input
+                    type="number"
+                    name="totalCopies"
+                    value={formData.totalCopies}
+                    onChange={handleChange}
+                    className="form-control"
+                  />
+                </div>
+
+                <div className="col-md-6">
+                  <label className="form-label fw-medium">Replacement Cost *</label>
+                  <input
+                    type="number"
+                    name="replacementCost"
+                    value={formData.replacementCost}
+                    onChange={handleChange}
+                    className="form-control"
+                  />
+                </div>
+
+                <div className="col-md-6">
+                  <label className="form-label fw-medium">Pages</label>
+                  <input
+                    type="number"
+                    name="pages"
+                    value={formData.pages}
+                    onChange={handleChange}
+                    className="form-control"
+                  />
+                </div>
+
+                <div className="col-md-6">
+                  <label className="form-label fw-medium">Weight (g)</label>
+                  <input
+                    type="number"
+                    name="weight"
+                    value={formData.weight}
+                    onChange={handleChange}
+                    className="form-control"
+                  />
+                </div>
+              </div>
+
+              <div className="mt-3">
+                <label className="form-label fw-medium">Description</label>
+                <textarea
+                  name="description"
+                  value={formData.description}
+                  onChange={handleChange}
+                  rows="4"
+                  className="form-control"
+                  placeholder="Short summary of the book"
+                />
+              </div>
+
+              <div className="d-flex flex-wrap gap-2 mt-4">
+                <button
+                  type="submit"
+                  className="btn btn-dark d-inline-flex align-items-center gap-2"
+                  disabled={submitting || loading}
+                >
+                  <i className="bi bi-save"></i>
+                  {submitting ? 'Saving...' : isEditMode ? 'Update Book' : 'Create Book'}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setFormData(emptyForm);
+                    setIsEditMode(false);
+                  }}
+                  className="btn btn-outline-secondary"
+                >
+                  Reset
+                </button>
+              </div>
             </div>
-          </div>
+          </form>
+        </div>
 
-          <div className="grid gap-4 md:grid-cols-2">
-            <label className="space-y-2">
-              <span className="text-sm font-medium text-slate-700">Title *</span>
-              <input
-                name="title"
-                value={formData.title}
-                onChange={handleChange}
-                className="w-full rounded-xl border border-slate-300 px-3 py-2.5 outline-none transition focus:border-slate-500 focus:ring-2 focus:ring-slate-100"
-                placeholder="The Great Gatsby"
-              />
-            </label>
+        <div className="col-12 col-xl-5">
+          <div className="vstack gap-4">
+            <div className="card border shadow-sm">
+              <div className="card-body p-4">
+                <h2 className="h5 fw-semibold mb-1">Import Books</h2>
+                <p className="small text-secondary">Paste a JSON array of book objects to import in bulk.</p>
 
-            <label className="space-y-2">
-              <span className="text-sm font-medium text-slate-700">Author *</span>
-              <input
-                name="author"
-                value={formData.author}
-                onChange={handleChange}
-                className="w-full rounded-xl border border-slate-300 px-3 py-2.5 outline-none transition focus:border-slate-500 focus:ring-2 focus:ring-slate-100"
-                placeholder="F. Scott Fitzgerald"
-              />
-            </label>
+                <textarea
+                  value={importText}
+                  onChange={(e) => setImportText(e.target.value)}
+                  rows="10"
+                  className="form-control font-monospace small"
+                  placeholder='[{"title":"Atomic Habits","author":"James Clear","isbn":"9780735211292","category":"Self Improvement","publisher":"Avery","publishedYear":2018,"totalCopies":5,"replacementCost":25}]'
+                />
 
-            <label className="space-y-2">
-              <span className="text-sm font-medium text-slate-700">ISBN *</span>
-              <input
-                name="isbn"
-                value={formData.isbn}
-                onChange={handleChange}
-                className="w-full rounded-xl border border-slate-300 px-3 py-2.5 outline-none transition focus:border-slate-500 focus:ring-2 focus:ring-slate-100"
-                placeholder="9780141182636"
-              />
-            </label>
+                <button
+                  type="button"
+                  onClick={handleImport}
+                  className="btn btn-success d-inline-flex align-items-center gap-2 mt-3"
+                  disabled={importing}
+                >
+                  <i className="bi bi-upload"></i>
+                  {importing ? 'Importing...' : 'Import Books'}
+                </button>
 
-            <label className="space-y-2">
-              <span className="text-sm font-medium text-slate-700">Category *</span>
-              <select
-                name="category"
-                value={formData.category}
-                onChange={handleChange}
-                className="w-full rounded-xl border border-slate-300 px-3 py-2.5 outline-none transition focus:border-slate-500 focus:ring-2 focus:ring-slate-100"
-              >
-                <option value="">Select a category</option>
-                {categories.map((category) => (
-                  <option key={category._id} value={category._id}>
-                    {category.name}
-                  </option>
-                ))}
-              </select>
-            </label>
-
-            <label className="space-y-2">
-              <span className="text-sm font-medium text-slate-700">Publisher *</span>
-              <input
-                name="publisher"
-                value={formData.publisher}
-                onChange={handleChange}
-                className="w-full rounded-xl border border-slate-300 px-3 py-2.5 outline-none transition focus:border-slate-500 focus:ring-2 focus:ring-slate-100"
-                placeholder="Penguin Books"
-              />
-            </label>
-
-            <label className="space-y-2">
-              <span className="text-sm font-medium text-slate-700">Published Year *</span>
-              <input
-                type="number"
-                name="publishedYear"
-                value={formData.publishedYear}
-                onChange={handleChange}
-                className="w-full rounded-xl border border-slate-300 px-3 py-2.5 outline-none transition focus:border-slate-500 focus:ring-2 focus:ring-slate-100"
-              />
-            </label>
-
-            <label className="space-y-2">
-              <span className="text-sm font-medium text-slate-700">Language</span>
-              <select
-                name="language"
-                value={formData.language}
-                onChange={handleChange}
-                className="w-full rounded-xl border border-slate-300 px-3 py-2.5 outline-none transition focus:border-slate-500 focus:ring-2 focus:ring-slate-100"
-              >
-                <option value="English">English</option>
-                <option value="Hindi">Hindi</option>
-                <option value="Spanish">Spanish</option>
-                <option value="French">French</option>
-                <option value="German">German</option>
-                <option value="Chinese">Chinese</option>
-                <option value="Japanese">Japanese</option>
-                <option value="Others">Others</option>
-              </select>
-            </label>
-
-            <label className="space-y-2">
-              <span className="text-sm font-medium text-slate-700">Status</span>
-              <select
-                name="status"
-                value={formData.status}
-                onChange={handleChange}
-                className="w-full rounded-xl border border-slate-300 px-3 py-2.5 outline-none transition focus:border-slate-500 focus:ring-2 focus:ring-slate-100"
-              >
-                <option value="available">Available</option>
-                <option value="borrowed">Borrowed</option>
-                <option value="reserved">Reserved</option>
-                <option value="damaged">Damaged</option>
-                <option value="lost">Lost</option>
-              </select>
-            </label>
-
-            <label className="space-y-2">
-              <span className="text-sm font-medium text-slate-700">Total Copies *</span>
-              <input
-                type="number"
-                name="totalCopies"
-                value={formData.totalCopies}
-                onChange={handleChange}
-                className="w-full rounded-xl border border-slate-300 px-3 py-2.5 outline-none transition focus:border-slate-500 focus:ring-2 focus:ring-slate-100"
-              />
-            </label>
-
-            <label className="space-y-2">
-              <span className="text-sm font-medium text-slate-700">Replacement Cost *</span>
-              <input
-                type="number"
-                name="replacementCost"
-                value={formData.replacementCost}
-                onChange={handleChange}
-                className="w-full rounded-xl border border-slate-300 px-3 py-2.5 outline-none transition focus:border-slate-500 focus:ring-2 focus:ring-slate-100"
-              />
-            </label>
-
-            <label className="space-y-2">
-              <span className="text-sm font-medium text-slate-700">Pages</span>
-              <input
-                type="number"
-                name="pages"
-                value={formData.pages}
-                onChange={handleChange}
-                className="w-full rounded-xl border border-slate-300 px-3 py-2.5 outline-none transition focus:border-slate-500 focus:ring-2 focus:ring-slate-100"
-              />
-            </label>
-
-            <label className="space-y-2">
-              <span className="text-sm font-medium text-slate-700">Weight (g)</span>
-              <input
-                type="number"
-                name="weight"
-                value={formData.weight}
-                onChange={handleChange}
-                className="w-full rounded-xl border border-slate-300 px-3 py-2.5 outline-none transition focus:border-slate-500 focus:ring-2 focus:ring-slate-100"
-              />
-            </label>
-          </div>
-
-          <label className="mt-4 block space-y-2">
-            <span className="text-sm font-medium text-slate-700">Description</span>
-            <textarea
-              name="description"
-              value={formData.description}
-              onChange={handleChange}
-              rows="4"
-              className="w-full rounded-xl border border-slate-300 px-3 py-2.5 outline-none transition focus:border-slate-500 focus:ring-2 focus:ring-slate-100"
-              placeholder="Short summary of the book"
-            />
-          </label>
-
-          <div className="mt-6 flex flex-wrap gap-3">
-            <button
-              type="submit"
-              className="rounded-xl bg-slate-900 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-700"
-              disabled={submitting || loading}
-            >
-              {submitting ? 'Saving...' : isEditMode ? 'Update Book' : 'Create Book'}
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                setFormData(emptyForm);
-                setIsEditMode(false);
-              }}
-              className="rounded-xl border border-slate-300 px-5 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
-            >
-              Reset
-            </button>
-          </div>
-        </form>
-
-        <div className="space-y-6">
-          <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-            <div className="flex items-center justify-between">
-              <div>
-                <h2 className="text-xl font-semibold text-slate-900">Import Books</h2>
-                <p className="mt-1 text-sm text-slate-500">Paste a JSON array of book objects to import in bulk.</p>
+                {importSummary && (
+                  <div className="alert alert-success mt-3 mb-0" role="alert">
+                    Imported {importSummary.count} book(s).{importSummary.titles.length > 0 && <div className="mt-2">Examples: {importSummary.titles.join(', ')}</div>}
+                  </div>
+                )}
               </div>
             </div>
 
-            <textarea
-              value={importText}
-              onChange={(e) => setImportText(e.target.value)}
-              rows="10"
-              className="mt-4 w-full rounded-xl border border-slate-300 px-3 py-2.5 font-mono text-sm outline-none transition focus:border-slate-500 focus:ring-2 focus:ring-slate-100"
-              placeholder='[{"title":"Atomic Habits","author":"James Clear","isbn":"9780735211292","category":"Self Improvement","publisher":"Avery","publishedYear":2018,"totalCopies":5,"replacementCost":25}]'
-            />
-
-            <button
-              type="button"
-              onClick={handleImport}
-              className="mt-4 rounded-xl bg-emerald-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-emerald-700"
-              disabled={importing}
-            >
-              {importing ? 'Importing...' : 'Import Books'}
-            </button>
-
-            {importSummary && (
-              <div className="mt-4 rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-700">
-                Imported {importSummary.count} book(s).{importSummary.titles.length > 0 && <div className="mt-2">Examples: {importSummary.titles.join(', ')}</div>}
+            <div className="card border shadow-sm bg-light">
+              <div className="card-body p-4">
+                <h3 className="h6 fw-semibold mb-3">Import format</h3>
+                <ul className="small text-secondary mb-0 ps-3">
+                  <li className="mb-2">Use a JSON array of objects.</li>
+                  <li className="mb-2">Each item should include title, author, isbn, category, publisher, publishedYear, totalCopies, and replacementCost.</li>
+                  <li>Category can be the category name or an existing category ID.</li>
+                </ul>
               </div>
-            )}
-          </div>
-
-          <div className="rounded-3xl border border-slate-200 bg-slate-50 p-6 shadow-sm">
-            <h3 className="text-lg font-semibold text-slate-900">Import format</h3>
-            <ul className="mt-3 space-y-2 text-sm text-slate-600">
-              <li>• Use a JSON array of objects.</li>
-              <li>• Each item should include title, author, isbn, category, publisher, publishedYear, totalCopies, and replacementCost.</li>
-              <li>• Category can be the category name or an existing category ID.</li>
-            </ul>
+            </div>
           </div>
         </div>
       </div>

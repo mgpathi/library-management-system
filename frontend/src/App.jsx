@@ -16,6 +16,8 @@ import DashboardPage from './pages/dashboard/DashboardPage';
 import BooksListPage from './pages/books/BooksListPage';
 import BookDetailPage from './pages/books/BookDetailPage';
 import BookFormPage from './pages/books/BookFormPage';
+import BookBorrowPage from './pages/books/BookBorrowPage';
+import BookReturnPage from './pages/books/BookReturnPage';
 import UsersListPage from './pages/users/UsersListPage';
 import ProfilePage from './pages/profile/ProfilePage';
 import MyBooksPage from './pages/books/MyBooksPage';
@@ -72,6 +74,8 @@ function App() {
         <Route path="/books/new" element={<BookFormPage />} />
         <Route path="/books/edit/:id" element={<BookFormPage />} />
         <Route path="/books/:id" element={<BookDetailPage />} />
+        <Route path="/books/borrow/:id" element={<BookBorrowPage />} />
+        <Route path="/books/return/:id" element={<BookReturnPage />} />
         <Route path="/my-books" element={<MyBooksPage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/users" element={<UsersListPage />} />

@@ -30,49 +30,56 @@ function DashboardPage() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-full">
-        <p className="text-lg text-gray-500">Loading...</p>
+      <div className="d-flex align-items-center justify-content-center h-100">
+        <div className="spinner-border text-primary me-2" role="status" aria-hidden="true"></div>
+        <span className="fs-5 text-secondary">Loading...</span>
       </div>
     );
   }
 
   const cards = [
-    { label: 'Total Books', value: stats?.totalBooks || 0, color: 'bg-blue-500' },
-    { label: 'Available Books', value: stats?.availableBooks || 0, color: 'bg-green-500' },
-    { label: 'Borrowed Books', value: stats?.borrowedBooks || 0, color: 'bg-yellow-500' },
-    { label: 'Overdue Books', value: stats?.overdueBooks || 0, color: 'bg-red-500' },
-    { label: 'Total Users', value: stats?.totalUsers || 0, color: 'bg-purple-500' },
-    { label: 'Active Users', value: stats?.activeUsers || 0, color: 'bg-indigo-500' },
+    { label: 'Total Books', value: stats?.totalBooks || 0, color: 'bg-primary', icon: 'bi-book' },
+    { label: 'Available Books', value: stats?.availableBooks || 0, color: 'bg-success', icon: 'bi-check-circle' },
+    { label: 'Borrowed Books', value: stats?.borrowedBooks || 0, color: 'bg-warning', icon: 'bi-journal-arrow-up' },
+    { label: 'Overdue Books', value: stats?.overdueBooks || 0, color: 'bg-danger', icon: 'bi-exclamation-triangle' },
+    { label: 'Total Users', value: stats?.totalUsers || 0, color: 'bg-purple', icon: 'bi-people' },
+    { label: 'Active Users', value: stats?.activeUsers || 0, color: 'bg-info', icon: 'bi-person-check' },
   ];
 
   return (
     <div>
-      <h1 className="text-3xl font-bold text-gray-900 mb-8">Dashboard</h1>
+      <h1 className="h2 fw-bold mb-4">Dashboard</h1>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+      <div className="row g-4 mb-4">
         {cards.map((card) => (
-          <div
-            key={card.label}
-            className={`${card.color} text-white p-6 rounded-lg shadow-lg`}
-          >
-            <p className="text-sm opacity-90 mb-2">{card.label}</p>
-            <p className="text-4xl font-bold">{card.value}</p>
+          <div key={card.label} className="col-12 col-md-6 col-lg-4">
+            <div className={`card border-0 shadow-sm text-white ${card.color}`}>
+              <div className="card-body d-flex align-items-center justify-content-between">
+                <div>
+                  <p className="small opacity-75 mb-2">{card.label}</p>
+                  <p className="display-6 fw-bold mb-0">{card.value}</p>
+                </div>
+                <i className={`bi ${card.icon} display-5 opacity-50`}></i>
+              </div>
+            </div>
           </div>
         ))}
       </div>
 
       {/* Additional Info */}
-      <div className="bg-white rounded-lg shadow p-6">
-        <h2 className="text-xl font-semibold text-gray-900 mb-4">Quick Stats</h2>
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <p className="text-gray-600">Unpaid Fines</p>
-            <p className="text-2xl font-bold text-red-600">Rs. {stats?.unpaidFinesAmount || 0}</p>
-          </div>
-          <div>
-            <p className="text-gray-600">Membership</p>
-            <p className="text-2xl font-bold text-green-600">Active</p>
+      <div className="card border-0 shadow-sm">
+        <div className="card-body">
+          <h2 className="h5 fw-semibold mb-3">Quick Stats</h2>
+          <div className="row g-4">
+            <div className="col-6">
+              <p className="text-secondary mb-1">Unpaid Fines</p>
+              <p className="h4 fw-bold text-danger mb-0">Rs. {stats?.unpaidFinesAmount || 0}</p>
+            </div>
+            <div className="col-6">
+              <p className="text-secondary mb-1">Membership</p>
+              <p className="h4 fw-bold text-success mb-0">Active</p>
+            </div>
           </div>
         </div>
       </div>

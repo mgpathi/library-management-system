@@ -7,37 +7,47 @@ import { useNavigate } from 'react-router-dom';
 export function BookDetailPage() {
   const navigate = useNavigate();
   return (
-    <div className="bg-white rounded-lg shadow p-6">
-      <button onClick={() => navigate(-1)} className="text-blue-600 mb-4">← Back</button>
-      <h1 className="text-3xl font-bold">Book Details</h1>
-      <p className="text-gray-600 mt-4">Book details page - to be implemented</p>
+    <div className="card border-0 shadow-sm">
+      <div className="card-body p-4">
+        <button type="button" onClick={() => navigate(-1)} className="btn btn-link p-0 mb-3 d-inline-flex align-items-center gap-1 text-decoration-none">
+          <i className="bi bi-arrow-left"></i> Back
+        </button>
+        <h1 className="h2 fw-bold mb-3">Book Details</h1>
+        <p className="text-secondary mb-0">Book details page - to be implemented</p>
+      </div>
     </div>
   );
 }
 
 export function MyBooksPage() {
   return (
-    <div className="bg-white rounded-lg shadow p-6">
-      <h1 className="text-3xl font-bold">My Books</h1>
-      <p className="text-gray-600 mt-4">My books page - to be implemented</p>
+    <div className="card border-0 shadow-sm">
+      <div className="card-body p-4">
+        <h1 className="h2 fw-bold mb-3">My Books</h1>
+        <p className="text-secondary mb-0">My books page - to be implemented</p>
+      </div>
     </div>
   );
 }
 
 export function UsersListPage() {
   return (
-    <div className="bg-white rounded-lg shadow p-6">
-      <h1 className="text-3xl font-bold">Users</h1>
-      <p className="text-gray-600 mt-4">Users management page - to be implemented</p>
+    <div className="card border-0 shadow-sm">
+      <div className="card-body p-4">
+        <h1 className="h2 fw-bold mb-3">Users</h1>
+        <p className="text-secondary mb-0">Users management page - to be implemented</p>
+      </div>
     </div>
   );
 }
 
 export function ProfilePage() {
   return (
-    <div className="bg-white rounded-lg shadow p-6">
-      <h1 className="text-3xl font-bold">Profile</h1>
-      <p className="text-gray-600 mt-4">Profile page - to be implemented</p>
+    <div className="card border-0 shadow-sm">
+      <div className="card-body p-4">
+        <h1 className="h2 fw-bold mb-3">Profile</h1>
+        <p className="text-secondary mb-0">Profile page - to be implemented</p>
+      </div>
     </div>
   );
 }
@@ -45,14 +55,16 @@ export function ProfilePage() {
 export function NotFoundPage() {
   const navigate = useNavigate();
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+    <div className="min-vh-100 d-flex align-items-center justify-content-center bg-light">
       <div className="text-center">
-        <h1 className="text-6xl font-bold text-gray-900 mb-4">404</h1>
-        <p className="text-xl text-gray-600 mb-8">Page not found</p>
+        <h1 className="display-1 fw-bold mb-3">404</h1>
+        <p className="fs-4 text-secondary mb-4">Page not found</p>
         <button
+          type="button"
           onClick={() => navigate('/dashboard')}
-          className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700"
+          className="btn btn-primary d-inline-flex align-items-center gap-2"
         >
+          <i className="bi bi-house"></i>
           Go to Dashboard
         </button>
       </div>

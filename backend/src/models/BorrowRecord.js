@@ -57,7 +57,6 @@ const borrowRecordSchema = new mongoose.Schema(
     returnCondition: {
       type: String,
       enum: ['good', 'damaged', 'lost'],
-      default: null,
     },
     remarks: {
       type: String,

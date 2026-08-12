@@ -12,17 +12,17 @@ function Layout() {
   const { sidebarOpen } = useSelector((state) => state.ui);
 
   return (
-    <div className="flex h-screen bg-gray-50">
+    <div className="d-flex vh-100 overflow-hidden bg-light">
       {/* Sidebar */}
       <Sidebar />
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col overflow-hidden">
+      <div className="d-flex flex-column flex-grow-1 overflow-hidden">
         {/* Header */}
         <Header />
 
         {/* Page Content */}
-        <main className="flex-1 overflow-auto p-6">
+        <main className="flex-grow-1 overflow-auto p-4">
           <Outlet />
         </main>
       </div>
