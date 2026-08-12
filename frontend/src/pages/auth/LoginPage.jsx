@@ -22,7 +22,7 @@ function LoginPage() {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
 
-  const appVersion = import.meta.env.VITE_APP_VERSION || '1.0.0';
+  const appVersion = import.meta.env.VITE_APP_NAME + ' v' + import.meta.env.VITE_APP_VERSION;
 
   const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(validationSchema),
