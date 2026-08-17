@@ -189,6 +189,35 @@ export const getBorrowStats = async (req, res, next) => {
   }
 };
 
+// ============= SEND OVERDUE ALERT FOR A BORROW =============
+export const sendOverdueAlert = async (req, res, next) => {
+  try {
+    const { borrowRecordId } = req.body;
+
+    const result = await borrowService.sendOverdueAlert(borrowRecordId);
+
+    await AuditLog.createLog({
+      userId: req.user._id,
+      action: 'SEND_OVERDUE_ALERT',
+      entityType: 'BorrowRecord',
+      entityId: borrowRecordId,
+      description: `Sent overdue alert for borrow ${borrowRecordId}`,
+      ipAddress: req.ip,
+      userAgent: req.get('user-agent'),
+      endpoint: req.originalUrl,
+      method: req.method,
+    });
+
+    res.json({
+      success: true,
+      message: 'Overdue alert sent',
+      data: result,
+    });
+  } catch (error) {
+    next(new ErrorResponse(error.message, 400));
+  }
+};
+
 export default {
   borrowBook,
   returnBook,
@@ -197,5 +226,6 @@ export default {
   getBorrowHistory,
   getOverdueBooks,
   sendDueReminders,
+  sendOverdueAlert,
   getBorrowStats,
 };

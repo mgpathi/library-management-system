@@ -55,6 +55,11 @@ export const borrowService = {
     return response.data;
   },
 
+  sendOverdueAlert: async (borrowRecordId) => {
+    const response = await apiClient.post('/borrow/alert', { borrowRecordId });
+    return response.data;
+  },
+
   getBorrowStats: async () => {
     const response = await apiClient.get('/borrow/stats');
     return response.data;

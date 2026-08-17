@@ -7,12 +7,13 @@ import nodemailer from 'nodemailer';
 
 // Create email transporter
 const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST,
-  port: process.env.SMTP_PORT,
-  secure: false,
+  // host: process.env.SMTP_HOST,
+  // port: process.env.SMTP_PORT,
+  // secure: false,
+  service: 'gmail',
   auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASSWORD,
+    user: 'baggamvrao@gmail.com',
+    pass: 'jjen gfxp zgbx wblq',
   },
 });
 
@@ -26,7 +27,7 @@ const transporter = nodemailer.createTransport({
 export const sendEmail = async (to, subject, html) => {
   try {
     const info = await transporter.sendMail({
-      from: process.env.SMTP_FROM,
+      from: `"Wild Geese Library" <${"baggamvrao@gmail.com"}>`,
       to,
       subject,
       html,

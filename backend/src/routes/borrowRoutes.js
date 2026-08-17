@@ -27,6 +27,8 @@ router.post('/renew', protect, validateRenewBorrow, handleValidationErrors, borr
 // Admin routes
 router.get('/overdue', protect, authorize(ROLES.ADMIN, ROLES.LIBRARIAN), borrowController.getOverdueBooks);
 router.post('/send-reminders', protect, authorize(ROLES.ADMIN), borrowController.sendDueReminders);
+// Send overdue alert for a specific borrow (Librarian/Admin)
+router.post('/alert', protect, authorize(ROLES.ADMIN, ROLES.LIBRARIAN), borrowController.sendOverdueAlert);
 router.get('/stats', protect, authorize(ROLES.ADMIN, ROLES.LIBRARIAN), borrowController.getBorrowStats);
 router.get('/:userId/active', protect, authorize(ROLES.ADMIN, ROLES.LIBRARIAN), borrowController.getActiveBorrows);
 router.get('/:userId/history', protect, authorize(ROLES.ADMIN, ROLES.LIBRARIAN), borrowController.getBorrowHistory);

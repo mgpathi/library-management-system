@@ -286,6 +286,37 @@ export const borrowService = {
   },
 
   /**
+   * Send overdue alert for a specific borrow record
+   */
+  async sendOverdueAlert(borrowRecordId) {
+    const borrowRecord = await BorrowRecord.findById(borrowRecordId)
+      .populate('user')
+      .populate('book');
+
+    if (!borrowRecord) {
+      throw new Error('Borrow record not found');
+    }
+
+    const user = borrowRecord.user;
+    const book = borrowRecord.book;
+
+    try {
+      await sendOverdueReminderEmail(user.email, [
+        {
+          title: book.title,
+          author: book.author,
+          dueDate: borrowRecord.dueDate,
+        },
+      ]);
+    } catch (error) {
+      console.error(`Failed to send overdue alert to ${user.email}:`, error.message);
+      throw error;
+    }
+
+    return { success: true };
+  },
+
+  /**
    * Get borrow statistics
    */
   async getBorrowStats() {

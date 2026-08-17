@@ -161,7 +161,21 @@ function UsersListPage() {
       setBusyBorrowId(null);
     }
   };
-
+  const handleSendOverdueAlert = (u, borrow) => {
+    // Call backend API to send overdue alert email
+    (async () => {
+      try {
+        setBusyBorrowId(borrow._id);
+        await makeRequest(() => borrowService.sendOverdueAlert(borrow._id), {
+          successMessage: 'Overdue alert email sent',
+        });
+      } catch (error) {
+        console.error('Failed to send overdue alert:', error);
+      } finally {
+        setBusyBorrowId(null);
+      }
+    })();
+  };
   const handleRenew = async (userId, borrow) => {
     try {
       setBusyBorrowId(borrow._id);
@@ -365,6 +379,7 @@ function UsersListPage() {
                                         >
                                           <i className="bi bi-box-arrow-in-left"></i> Return
                                         </button>
+
                                         <button
                                           type="button"
                                           className="btn btn-outline-primary d-inline-flex align-items-center gap-1"
@@ -374,7 +389,38 @@ function UsersListPage() {
                                         >
                                           <i className="bi bi-arrow-repeat"></i> Renew
                                         </button>
+
+                                        {overdue && (
+                                          <button
+                                            type="button"
+                                            className="btn btn-outline-danger d-inline-flex align-items-center gap-1"
+                                            onClick={() => handleSendOverdueAlert(u, b)}
+                                            disabled={busy || !u.email}
+                                            title={!u.email ? 'User has no email address' : 'Send overdue alert email'}
+                                          >
+                                            <i className="bi bi-envelope"></i> Alert Mail
+                                          </button>
+                                        )}
                                       </div>
+                                      {/* <div className="btn-group btn-group-sm" role="group">
+                                        <button
+                                          type="button"
+                                          className="btn btn-outline-success d-inline-flex align-items-center gap-1"
+                                          onClick={() => handleReturn(u._id, b)}
+                                          disabled={busy}
+                                        >
+                                          <i className="bi bi-box-arrow-in-left"></i> Return
+                                        </button>
+                                        <button
+                                          type="button"
+                                          className="btn btn-outline-primary d-inline-flex align-items-center gap-1"
+                                          onClick={() => handleRenew(u._id, b)}
+                                          disabled={busy || maxRenewalsReached}
+                                          title={maxRenewalsReached ? 'Maximum renewals reached' : 'Renew for 14 days'}
+                                        >
+                                          <i className="bi bi-arrow-repeat"></i> Renew
+                                        </button>
+                                      </div> */}
                                     </li>
                                   );
                                 })}

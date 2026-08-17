@@ -31,6 +31,7 @@ const auditLogSchema = new mongoose.Schema(
         'BOOK_BORROWED',
         'BOOK_RETURNED',
         'BOOK_RENEWED',
+        'SEND_OVERDUE_ALERT',
         'FINE_CREATED',
         'FINE_PAID',
         'FINE_WAIVED',
