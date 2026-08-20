@@ -22,7 +22,7 @@ function LoginPage() {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
 
-  const appVersion = import.meta.env.VITE_APP_NAME + ' v' + import.meta.env.VITE_APP_VERSION;
+  const appVersion = import.meta.env.VITE_APP_VERSION;
 
   const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(validationSchema),
@@ -106,7 +106,7 @@ function LoginPage() {
             </button>
           </p>
           <p className="text-center text-secondary mt-4 mb-0">
-            App Version: <span className="fw-semibold">{appVersion}</span>
+            App Version: <span className="fw-semibold">{appVersion || 'v1.0.0'}</span>
           </p>
         </div>
       </div>

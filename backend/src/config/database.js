@@ -8,11 +8,10 @@ import mongoose from 'mongoose';
 export const connectDB = async () => {
   try {
     console.log("=== MongoDB Connection ===");
-    console.log(`Environment: ${process.env}`);
-    const tempURI = 'mongodb://localhost:27017/library_management'
+    console.log(`Environment: ${process.env.NODE_ENV}`);
     const mongoURI = process.env.NODE_ENV === 'production'
       ? process.env.MONGODB_ATLAS_URI
-      : process.env.MONGODB_URI || tempURI;
+      : process.env.MONGODB_URI;
 
     if (!mongoURI) {
       throw new Error('MongoDB URI not configured in environment variables');
